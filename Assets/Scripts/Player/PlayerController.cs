@@ -14,6 +14,9 @@ public class PlayerController : MonoBehaviour
     private Animator myAnimator; //Player animator
     private SpriteRenderer mySpriteRender;//render ra mấy cái animation
 
+
+    public bool FacingLeft { get; set; }
+
     private void Awake()
     {
         playerControls = new PlayerControls();
@@ -67,12 +70,14 @@ public class PlayerController : MonoBehaviour
         if (mousePos.x < playerScreenPoint.x)
         {
             mySpriteRender.flipX = true;
+            FacingLeft = true;
         }
 
         //ngược lại thì không
         else
         {
             mySpriteRender.flipX = false;
+            FacingLeft = false;
         }
     }
 }

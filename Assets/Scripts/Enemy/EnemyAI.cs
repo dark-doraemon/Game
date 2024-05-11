@@ -16,6 +16,7 @@ public class EnemyAI : MonoBehaviour
     private State state;
     private EnemyPathFinding enemyPathFinding;
 
+
     private void Awake()
     {
         enemyPathFinding = GetComponent<EnemyPathFinding>();
