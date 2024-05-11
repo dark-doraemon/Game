@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -14,11 +16,13 @@ public class PlayerController : MonoBehaviour
     private Animator myAnimator; //Player animator
     private SpriteRenderer mySpriteRender;//render ra mấy cái animation
 
+    public static PlayerController Instance;
 
     public bool FacingLeft { get; set; }
 
     private void Awake()
     {
+        Instance = this;
         playerControls = new PlayerControls();
         rb = GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();

@@ -1441,6 +1441,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 958217106}
+  - {fileID: 2035433428}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &1958750819
@@ -1613,6 +1614,114 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 282545816695290498, guid: cbe572c3f51016347a930d643b8d07bc, type: 3}
   m_PrefabInstance: {fileID: 3847706825925336613}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2035433427
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2035433428}
+  - component: {fileID: 2035433429}
+  - component: {fileID: 2035433430}
+  m_Layer: 0
+  m_Name: WeaponCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &2035433428
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2035433427}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.03999996, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1958750818}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!60 &2035433429
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2035433427}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 2.119686, y: 2.229417}
+      - {x: 2.0453494, y: 2.406374}
+      - {x: 1.4017847, y: 2.4873204}
+      - {x: 0.9478251, y: 2.3543873}
+      - {x: 0.5455936, y: 2.1611967}
+      - {x: 0.3852179, y: 1.6806976}
+      - {x: 0.6680632, y: 0.4995015}
+      - {x: 0.26983607, y: -0.5395429}
+      - {x: 1.2065414, y: -1.1438396}
+      - {x: 1.7582703, y: -0.8750484}
+      - {x: 1.9437172, y: -0.81447554}
+      - {x: 2.1819096, y: -0.6504619}
+      - {x: 2.3827465, y: -0.18515313}
+      - {x: 2.5068765, y: 0.29640043}
+      - {x: 2.4958572, y: 0.46234548}
+      - {x: 2.4722395, y: 1.1995918}
+      - {x: 2.4691405, y: 2.0209684}
+  m_UseDelaunayMesh: 0
+--- !u!114 &2035433430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2035433427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b5e186990b9c1d479e55343811f5986, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageAmount: 1
 --- !u!1001 &2074508005
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1706,13 +1815,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2129031009}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.9178337, w: 0.39696512}
-  m_LocalPosition: {x: 0.38, y: 0.88, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7396311, w: 0.67301255}
+  m_LocalPosition: {x: 0.63, y: 0.88, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 958217106}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 133.223}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 95.4}
 --- !u!95 &2129031011
 Animator:
   serializedVersion: 5
@@ -1800,6 +1909,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slashAnimationPrefab: {fileID: 6651520582840892022, guid: b1cf1c080bbbb914ab38b91a1bb45ed9, type: 3}
   slashAnimationSpawnPoint: {fileID: 1804103627}
+  weaponCollider: {fileID: 2035433428}
 --- !u!4 &676331696261565560
 Transform:
   m_ObjectHideFlags: 0
