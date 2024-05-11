@@ -11,9 +11,11 @@ public class EnemyHealth : MonoBehaviour
 
     private int currentHealth;
     private KnockBack knockBack;
+    private Flash flash;
 
     private void Awake()
     {
+        flash = GetComponent<Flash>();
         knockBack = GetComponent<KnockBack>();  
     }
 
@@ -29,12 +31,15 @@ public class EnemyHealth : MonoBehaviour
         //ta cần vị trí của Nguồn gây sát thương để tính toán góc bị đẫy
         knockBack.GetKnockedBack(PlayerController.Instance.transform, knockBackThrust);
         Debug.Log(currentHealth);
-        DetectDeath();
+
+
+        //nếu quái nhận damage thì kích hoạt hiệu ứng bị đánh
+        StartCoroutine(flash.FlashRoutine());
     }
 
-    private void DetectDeath()
+    public void DetectDeath()
     {
-        //nếu là hết màu thì đối tượng gắn script này sẽ bị hủy
+        //nếu là hết máu thì đối tượng gắn script này sẽ bị hủy
         if(currentHealth <=0)
         {
             Destroy(gameObject);
