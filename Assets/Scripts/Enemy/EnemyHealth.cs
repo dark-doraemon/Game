@@ -9,6 +9,7 @@ public class EnemyHealth : MonoBehaviour
 
     [SerializeField] private float knockBackThrust = 15f; //lực bị đẩy lùi
 
+    [SerializeField] private GameObject slimeDeathVFXPrefab;
     private int currentHealth;
     private KnockBack knockBack;
     private Flash flash;
@@ -42,6 +43,8 @@ public class EnemyHealth : MonoBehaviour
         //nếu là hết máu thì đối tượng gắn script này sẽ bị hủy
         if(currentHealth <=0)
         {
+            //nếu slime chết thì tạo hiệu ứng chết tại ví trí của slime
+            Instantiate(slimeDeathVFXPrefab,transform.position,Quaternion.identity);
             Destroy(gameObject);
         }
     }

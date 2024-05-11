@@ -214,6 +214,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 3
   knockBackThrust: 15
+  slimeDeathVFXPrefab: {fileID: 4823044876635036581, guid: 8704e0b2dfe589a459096f32655a4f58, type: 3}
 --- !u!114 &1555621014405780719
 MonoBehaviour:
   m_ObjectHideFlags: 0
