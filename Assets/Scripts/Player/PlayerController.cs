@@ -5,7 +5,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : Singleton<PlayerController> 
 {
     //[SerializeField] dùng để hiển thị trên inspector
     [SerializeField] private float moveSpeed = 1f;
@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     private Animator myAnimator; //Player animator
     private SpriteRenderer mySpriteRender;//render ra mấy cái animation
 
-    public static PlayerController Instance;
+    //public static PlayerController Instance;
 
     public bool FacingLeft { get; set; }
     private bool isDashing { get; set; } = false;
@@ -56,9 +56,10 @@ public class PlayerController : MonoBehaviour
         isDashing = false;
     }
 
-    private void Awake()
+    protected override void Awake()
     {
-        Instance = this;
+        base.Awake();
+        //Instance = this;
         playerControls = new PlayerControls();
         rb = GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();
