@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.VisualScripting;
@@ -8,6 +9,11 @@ public class PlayerController : MonoBehaviour
 {
     //[SerializeField] dùng để hiển thị trên inspector
     [SerializeField] private float moveSpeed = 1f;
+    [SerializeField] private float dashSpeed = 4f;
+    [SerializeField] private float dashCountDown = 1f;
+    [SerializeField] private float dashTime = 0.2f;
+
+    [SerializeField] private TrailRenderer trailRenderer;//tạo hiệu ứng vẽ đuôi theo sau một đối tượng khi nó di chuyển
 
     private PlayerControls playerControls;
     private Vector2 movement;
@@ -19,6 +25,36 @@ public class PlayerController : MonoBehaviour
     public static PlayerController Instance;
 
     public bool FacingLeft { get; set; }
+    private bool isDashing { get; set; } = false;
+
+    private void Start()
+    {
+        playerControls.Combat.Dash.performed += _ => Dash();
+    }
+
+    public void Dash()
+    {
+        if (!isDashing)
+        {
+            isDashing = true;
+            moveSpeed += dashSpeed;
+            trailRenderer.emitting = true;
+            StartCoroutine(EndDashRoutine());
+        }
+    }
+
+    public IEnumerator EndDashRoutine()
+    {
+        //đợi thời gian dash 
+        yield return new WaitForSeconds(dashTime);
+
+        moveSpeed -= dashSpeed;
+        trailRenderer.emitting = false;
+
+        //đợi count down dash
+        yield return new WaitForSeconds(dashCountDown);
+        isDashing = false;
+    }
 
     private void Awake()
     {

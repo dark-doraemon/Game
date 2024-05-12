@@ -6,8 +6,7 @@ public class DamgeSource : MonoBehaviour
 {
     [SerializeField] private int damageAmount = 1;  
 
-    //collision là những đối tượng khác trong phạm vi collision của game object được gắn script này
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision) //collision là những đối tượng khác trong phạm vi collision của game object được gắn script này
     {
         //ta chỉ quan tầm tới EnemyHealth thôi nếu là EnemyHealth thì Debug.log
         if (collision.gameObject.GetComponent<EnemyHealth>())
