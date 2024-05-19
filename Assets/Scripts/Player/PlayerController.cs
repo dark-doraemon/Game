@@ -58,7 +58,7 @@ public class PlayerController : Singleton<PlayerController>
 
     protected override void Awake()
     {
-        base.Awake();
+        base.Awake(); //nó sẽ tự tạo instance từ trong base
         //Instance = this;
         playerControls = new PlayerControls();
         rb = GetComponent<Rigidbody2D>();

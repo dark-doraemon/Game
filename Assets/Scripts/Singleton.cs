@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-//class này dùng để tạo Instance của các đối tương kế thừa từ nó
+//class này dùng để tạo Instance của các đối tượng kế thừa từ nó
 public class Singleton<T> : MonoBehaviour where T : Singleton<T>
 {
     private static T instance;
