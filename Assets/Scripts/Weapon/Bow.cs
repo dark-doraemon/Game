@@ -27,6 +27,8 @@ public class Bow : MonoBehaviour, IWeapon
         //khi bắn tên phải tạo ra 1 mũi tên mới
         GameObject newArrow = Instantiate(arrowPrefab, arrowSpawnPoint.position, ActiveWeapon.Instance.transform.rotation);
 
+
+        newArrow.GetComponent<Projectile>().UpdateWeaponInfo(weaponInfo);
     }
 
     public WeaponInfo GetWeaponInfo()

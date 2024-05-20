@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
 {
+
+    [SerializeField] private float roamChangeDirFloat = 2f;
     private enum State
     {
         Roaming
@@ -27,29 +29,17 @@ public class EnemyAI : MonoBehaviour
 
     private Vector2 GetRoamingPosition()
     {
-        return new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
+        //return new Vector2(Random.Range(0, 0), Random.Range(0, 0)).normalized;
+        return new Vector2(Random.Range(-1f, 1f), Random.Range(-1f,1f)).normalized;
     }
 
     private IEnumerator RoamingRoutine()
     {
         while (state == State.Roaming)
         {
-            Vector2 roamPosition = GetRoamingPosition(); // Lấy vị trí roaming ngẫu nhiên
-            enemyPathFinding.MoveTo(roamPosition); // Di chuyển tới vị trí đó
-            FlipSprite(roamPosition); // Quay mặt dựa trên hướng di chuyển
-            yield return new WaitForSeconds(2f); // Chờ 2 giây trước khi tiếp tục vòng lặp
-        }
-    }
-
-    private void FlipSprite(Vector2 direction)
-    {
-        if (direction.x < 0)
-        {
-            spriteRenderer.flipX = true; // Quay mặt sang trái
-        }
-        else if (direction.x > 0)
-        {
-            spriteRenderer.flipX = false; // Quay mặt sang phải
+            Vector2 roamPosition = GetRoamingPosition(); // lấy vị trí roaming ngẫu nhiên bằng hàm GetRoamingPosition()
+            enemyPathFinding.MoveTo(roamPosition);//di chuyển tới vị trí đó
+            yield return new WaitForSeconds(roamChangeDirFloat);//chờ 2 giây trc khi tiếp tục vòng lặp
         }
     }
 }

@@ -13,4 +13,6 @@ public class WeaponInfo : ScriptableObject
 {
     public GameObject weaponPrelab;
     public float weaponCountdown;
+    public int weaponDamage;
+    public float weaponRange;
 }

@@ -8,6 +8,11 @@ public class CameraController : Singleton<CameraController>
 {
     private CinemachineVirtualCamera cinemachineVirtualCamera;
 
+    private void Start()
+    {
+        SetPlayerCameraFollow();
+    }
+
     public void SetPlayerCameraFollow()
     {
         //tìm CinemachineVirtualCamera trong scene hiện tại, để khi chuyển qua scene mới nó vẫn dùng camera ở scene trc đó follow theo player
