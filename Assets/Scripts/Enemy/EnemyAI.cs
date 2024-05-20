@@ -2,10 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
-//class này chủ yếu là tạo ra các vị trí ngẫu nhiên đễ slime duy chuyến tới
-//sao đó EnemyPathFinding sẽ lấy các vị trí này để duy chuyển
 public class EnemyAI : MonoBehaviour
 {
     private enum State
@@ -15,35 +11,45 @@ public class EnemyAI : MonoBehaviour
 
     private State state;
     private EnemyPathFinding enemyPathFinding;
-
+    private SpriteRenderer spriteRenderer;
 
     private void Awake()
     {
         enemyPathFinding = GetComponent<EnemyPathFinding>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         state = State.Roaming;
     }
 
-
     private void Start()
     {
-        //Coroutine là cơ chế thực thi các hàm bất đồng bộ mà không cần tạo ra các luồng mới.
         StartCoroutine(RoamingRoutine());
     }
 
-
     private Vector2 GetRoamingPosition()
     {
-        return new Vector2(Random.Range(0, 0), Random.Range(0, 0)).normalized;
-        //return new Vector2(Random.Range(-1f, 1f), Random.Range(-1f,1f)).normalized;
+        return new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
     }
 
     private IEnumerator RoamingRoutine()
     {
-        while(state == State.Roaming)
+        while (state == State.Roaming)
         {
-            Vector2 roamPosition = GetRoamingPosition(); // lấy vị trí roaming ngẫu nhiên bằng hàm GetRoamingPosition()
-            enemyPathFinding.MoveTo(roamPosition);//di chuyển tới vị trí đó
-            yield return new WaitForSeconds(2f);//chờ 2 giây trc khi tiếp tục vòng lặp
+            Vector2 roamPosition = GetRoamingPosition(); // Lấy vị trí roaming ngẫu nhiên
+            enemyPathFinding.MoveTo(roamPosition); // Di chuyển tới vị trí đó
+            FlipSprite(roamPosition); // Quay mặt dựa trên hướng di chuyển
+            yield return new WaitForSeconds(2f); // Chờ 2 giây trước khi tiếp tục vòng lặp
+        }
+    }
+
+    private void FlipSprite(Vector2 direction)
+    {
+        if (direction.x < 0)
+        {
+            spriteRenderer.flipX = true; // Quay mặt sang trái
+        }
+        else if (direction.x > 0)
+        {
+            spriteRenderer.flipX = false; // Quay mặt sang phải
         }
     }
 }
