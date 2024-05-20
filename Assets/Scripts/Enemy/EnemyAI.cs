@@ -34,7 +34,7 @@ public class EnemyAI : MonoBehaviour
     private Vector2 GetRoamingPosition()
     {
         return new Vector2(Random.Range(0, 0), Random.Range(0, 0)).normalized;
-        //return new Vector2(Random.Range(-1f, 1f), Random.Range(-1f,1f)).normalized;
+        //return new Vector2(Random.Range(-1f, 1f), Random.Range(-1f,1f)).normaldized;
     }
 
     private IEnumerator RoamingRoutine()
