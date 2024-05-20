@@ -8,6 +8,8 @@ using UnityEngine;
 //sao đó EnemyPathFinding sẽ lấy các vị trí này để duy chuyển
 public class EnemyAI : MonoBehaviour
 {
+
+    [SerializeField] private float roamChangeDirFloat = 2f;
     private enum State
     {
         Roaming
@@ -33,8 +35,8 @@ public class EnemyAI : MonoBehaviour
 
     private Vector2 GetRoamingPosition()
     {
-        return new Vector2(Random.Range(0, 0), Random.Range(0, 0)).normalized;
-        //return new Vector2(Random.Range(-1f, 1f), Random.Range(-1f,1f)).normaldized;
+        //return new Vector2(Random.Range(0, 0), Random.Range(0, 0)).normalized;
+        return new Vector2(Random.Range(-1f, 1f), Random.Range(-1f,1f)).normalized;
     }
 
     private IEnumerator RoamingRoutine()
@@ -43,7 +45,7 @@ public class EnemyAI : MonoBehaviour
         {
             Vector2 roamPosition = GetRoamingPosition(); // lấy vị trí roaming ngẫu nhiên bằng hàm GetRoamingPosition()
             enemyPathFinding.MoveTo(roamPosition);//di chuyển tới vị trí đó
-            yield return new WaitForSeconds(2f);//chờ 2 giây trc khi tiếp tục vòng lặp
+            yield return new WaitForSeconds(roamChangeDirFloat);//chờ 2 giây trc khi tiếp tục vòng lặp
         }
     }
 }
