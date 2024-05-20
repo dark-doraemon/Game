@@ -1,59 +1,52 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Net;
+using UnityEditorInternal;
 using UnityEngine;
 
 
 //class này dùng để kích hoạt trigger attack khi nhấn cuột trái
-public class Sword : MonoBehaviour
+public class Sword : MonoBehaviour, IWeapon
 {
-    private PlayerControls playerControls;
+    //private PlayerControls playerControls;
     private Animator swordAnimator;
 
-    private PlayerController playerController;
-    private ActiveWeapon activeWeapon;
+    //private PlayerController playerController;
+    //private ActiveWeapon activeWeapon;
+    //private PlayerControls playerControls;
 
     [SerializeField] private GameObject slashAnimationPrefab;//hiệu ứng slash
     [SerializeField] private Transform slashAnimationSpawnPoint;//ví trí mà hiệu ứng slash sẽ xuất hiện
-    [SerializeField] private Transform weaponCollider;
-    private GameObject slashAnimation;
-
+    private Transform weaponCollider;
     [SerializeField] private float swordAttackCountDown = .5f;
-    private bool attackButtonDown, isAttacking = false;
+    [SerializeField] private WeaponInfo weaponInfo;
+
+
+    private GameObject slashAnimation;
+    
+
+
+
+    public WeaponInfo GetWeaponInfo()
+    {
+        return weaponInfo;
+    }
+
 
     private void Awake()
     {
         swordAnimator = GetComponent<Animator>();
-        playerControls = new PlayerControls();
+        //playerControls = new PlayerControls();
 
-        activeWeapon = GetComponentInParent<ActiveWeapon>();//lấy component của gameobject cha (vì sword nằm trong active weapon)
-        playerController = GetComponentInParent<PlayerController>();
+        //activeWeapon = GetComponentInParent<ActiveWeapon>();//lấy component của gameobject cha (vì sword nằm trong active weapon)
+        //playerController = GetComponentInParent<PlayerController>();
     }
 
-    private void OnEnable()
+
+    private void Start()
     {
-        playerControls.Enable();
-    }
-
-    private void Attack()
-    {
-        //nếu mà nhấn chuột phải và isAttacking == false (chưa đánh thì bắt đầu dánh)
-        if (attackButtonDown && !isAttacking)
-        {
-            isAttacking = true;
-
-            swordAnimator.SetTrigger("Attack");
-
-            //SetActive(true) được gọi để kích hoạt game object.
-            weaponCollider.gameObject.SetActive(true);
-
-            //khi mà tấn công thì khởi tạo hiệu ứng slash, tại vì trí slashAnimationSpawnPoint
-            slashAnimation = Instantiate(slashAnimationPrefab, slashAnimationSpawnPoint.position, Quaternion.identity);
-            slashAnimation.transform.parent = this.transform.parent;
-
-            //khởi tạo 1 thread riêng cho AttackCountDownRoutine()
-            StartCoroutine(AttackCountDownRoutine());
-        }
+        weaponCollider = PlayerController.Instance.GetWeaponCollider();
+        slashAnimationSpawnPoint = GameObject.Find("SlashSpawnPoint").transform;
     }
 
 
@@ -61,9 +54,10 @@ public class Sword : MonoBehaviour
     private IEnumerator AttackCountDownRoutine()
     {
         yield return new WaitForSeconds(swordAttackCountDown);
+        ActiveWeapon.Instance.ToggleIsAttacking(false);
         //nó sẽ đợi 1 khoản thời gian thì isAttacking mới thành false
-        //thì trước đó isAttacking sẽ là true mà isAttacking == true thì player không thể đánh tiếp
-        isAttacking = false;//thành false nên player mới có thể đánh tiếp
+        // trước đó isAttacking sẽ là true mà isAttacking == true thì player không thể đánh tiếp
+        //isAttacking = false;//thành false nên player mới có thể đánh tiếp
     }
 
     public void DoneAttackingAnimationEvent()
@@ -78,7 +72,7 @@ public class Sword : MonoBehaviour
     {
         slashAnimation.gameObject.transform.rotation = Quaternion.Euler(-180, 0, 0);
 
-        if (playerController.FacingLeft)
+        if (PlayerController.Instance.FacingLeft)
         {
             slashAnimation.GetComponent<SpriteRenderer>().flipX = true;
         }
@@ -87,37 +81,17 @@ public class Sword : MonoBehaviour
     public void SwingDownFlipAnimEvent()
     {
         slashAnimation.gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
-        if (playerController.FacingLeft)
+        if (PlayerController.Instance.FacingLeft)
         {
             slashAnimation.GetComponent<SpriteRenderer>().flipX = true;
         }
     }
 
 
-    private void Start()
-    {
-        //nó sẽ lấy Attack trong GameContols class(ta đã cài đặt hàm này bằng giao diện)
-        //playerControls.Combat.Attack.started += _ => Attack();
-        //khởi tạo hàm StartAttacking cho started  và StopAttacking cho canceled
-        playerControls.Combat.Attack.started += _ => StartAttacking();
-        playerControls.Combat.Attack.canceled += _ => StopAttacking();
-
-    }
-
-    private void StartAttacking()
-    {
-        attackButtonDown = true;
-    }
-
-    private void StopAttacking()
-    {
-        attackButtonDown = false;
-    }
-
     private void Update()
     {
         MouseFollowWithOffset();
-        Attack();
+        //Attack();
     }
 
 
@@ -127,7 +101,7 @@ public class Sword : MonoBehaviour
         Vector3 mousePos = Input.mousePosition;
 
         //lấy vị trí của player
-        Vector3 playerScreenPoint = Camera.main.WorldToScreenPoint(playerController.transform.position);
+        Vector3 playerScreenPoint = Camera.main.WorldToScreenPoint(PlayerController.Instance.transform.position);
 
 
 
@@ -140,17 +114,32 @@ public class Sword : MonoBehaviour
             //quay vũ khí trục x 1 góc 0 độ, y 1 góc -180 độ, z 1 góc angle
             //tại sao quay trục z (vì vũ khí sẽ chuyển theo chuột theo hướng trục z)
             //và lưu ý đầy là quay rotation không phải position
-            activeWeapon.transform.rotation = Quaternion.Euler(0, -180, angle);
+            ActiveWeapon.Instance.transform.rotation = Quaternion.Euler(0, -180, angle);
             weaponCollider.transform.rotation = Quaternion.Euler(0, -180, angle);
         }
 
         else
         {
-            activeWeapon.transform.rotation = Quaternion.Euler(0, 0, angle);
+            ActiveWeapon.Instance.transform.rotation = Quaternion.Euler(0, 0, angle);
             weaponCollider.transform.rotation = Quaternion.Euler(0, 0, 0);
 
         }
     }
 
+    public void Attack()
+    {
+        swordAnimator.SetTrigger("Attack");
 
+        //SetActive(true) được gọi để kích hoạt game object.
+        weaponCollider.gameObject.SetActive(true);
+
+        //khi mà tấn công thì khởi tạo hiệu ứng slash, tại vì trí slashAnimationSpawnPoint
+        slashAnimation = Instantiate(slashAnimationPrefab, slashAnimationSpawnPoint.position, Quaternion.identity);
+        slashAnimation.transform.parent = this.transform.parent;
+
+        //khởi tạo 1 thread riêng cho AttackCountDownRoutine()
+        //StartCoroutine(AttackCountDownRoutine());
+    }
+
+    
 }

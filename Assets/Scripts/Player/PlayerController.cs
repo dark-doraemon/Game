@@ -12,6 +12,7 @@ public class PlayerController : Singleton<PlayerController>
     [SerializeField] private float dashSpeed = 4f;
     [SerializeField] private float dashCountDown = 1f;
     [SerializeField] private float dashTime = 0.2f;
+    [SerializeField] private Transform weaponCollider;
 
     [SerializeField] private TrailRenderer trailRenderer;//tạo hiệu ứng vẽ đuôi theo sau một đối tượng khi nó di chuyển
 
@@ -80,6 +81,11 @@ public class PlayerController : Singleton<PlayerController>
     {
         AdjustPlayerFacingDirection();
         Move();
+    }
+
+    public Transform GetWeaponCollider()
+    {
+        return weaponCollider;
     }
 
     private void PlayerInput()
