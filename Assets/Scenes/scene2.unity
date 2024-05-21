@@ -123,7 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
-<<<<<<< Updated upstream
 --- !u!1 &467521605
 GameObject:
   m_ObjectHideFlags: 0
@@ -143,10 +142,8 @@ GameObject:
   m_IsActive: 1
 --- !u!82 &467521606
 AudioSource:
-=======
 --- !u!114 &10085288
 MonoBehaviour:
->>>>>>> Stashed changes
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -172,8 +169,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-<<<<<<< Updated upstream
-=======
 --- !u!4 &305282435 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7443219677236572992, guid: b02aea5ec8350422cb36792bf4b3d8e7, type: 3}
@@ -280,7 +275,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
->>>>>>> Stashed changes
 --- !u!1 &481763911
 GameObject:
   m_ObjectHideFlags: 0
@@ -13803,8 +13797,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f5ae5a58d535b14a99e4c4bdc2193d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< Updated upstream
-=======
 --- !u!1 &1087321574
 GameObject:
   m_ObjectHideFlags: 0
@@ -14149,7 +14141,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
->>>>>>> Stashed changes
 --- !u!1 &1477185752
 GameObject:
   m_ObjectHideFlags: 0
@@ -44169,12 +44160,9 @@ SceneRoots:
   - {fileID: 2065275740}
   - {fileID: 2014308108450080242}
   - {fileID: 481763912}
-<<<<<<< Updated upstream
   - {fileID: 1548742364}
   - {fileID: 467521607}
-=======
   - {fileID: 1137018714}
   - {fileID: 1087321577}
   - {fileID: 10085289}
   - {fileID: 1429237398}
->>>>>>> Stashed changes
