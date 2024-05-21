@@ -17,6 +17,8 @@ public class PlayerHealth : Singleton<PlayerHealth>
     [SerializeField] private float damageRecoveryTime = 1f; //thời gian phục hổi
     [SerializeField] private int damageFromEnemy = 1;
 
+    const string HEALTH_SLIDER_TEXT = "Health Slider";
+
 
     private Slider healthSilder;
     private int curentHealth;
@@ -47,7 +49,7 @@ public class PlayerHealth : Singleton<PlayerHealth>
     {
         if(healthSilder == null)
         {
-            healthSilder = GameObject.Find("Health Slider").GetComponent<Slider>();
+            healthSilder = GameObject.Find(HEALTH_SLIDER_TEXT).GetComponent<Slider>();
         }
         healthSilder.maxValue = maxHealth;
         healthSilder.value = curentHealth;
