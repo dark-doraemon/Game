@@ -4,14 +4,16 @@ using UnityEngine;
 
 
 //class này dùng để gắn vào game obeject ActiveInventory(this)
-public class ActiveInventory : MonoBehaviour 
+public class ActiveInventory : Singleton<ActiveInventory>
 { 
     private int activeSlotIndexNum = 0;
 
     private PlayerControls playerControls;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         playerControls = new PlayerControls();
     }
 
@@ -26,9 +28,19 @@ public class ActiveInventory : MonoBehaviour
         //(int)ctx.ReadValue<float>() : đọc từ Keyboard.performed khi ta nhấn 1,2,3,4,5
     }
 
+    public void EquipStartingWeapon()
+    {
+        ToggleActiveHighlight(0);
+    }
+
     private void OnEnable()
     {
         playerControls.Enable();
+    }
+
+    public void EquipStartWeapon()
+    {
+        ToggleActiveHighlight(0);
     }
 
     private void ToggleActiveSlot(int numValue)
@@ -81,12 +93,13 @@ public class ActiveInventory : MonoBehaviour
             .GetComponentInChildren<InventorySlot>().GetWeaponInfo().weaponPrelab;
 
         //khởi tạo 1 weapon mới
-        GameObject newWeapon = Instantiate(weaponToSpawn,ActiveWeapon.Instance.transform.position,Quaternion.identity);
+        //GameObject newWeapon = Instantiate(weaponToSpawn,ActiveWeapon.Instance.transform.position,Quaternion.identity);
+        GameObject newWeapon = Instantiate(weaponToSpawn,ActiveWeapon.Instance.transform);
 
-        ActiveWeapon.Instance.transform.rotation = Quaternion.Euler(0f,0f,0f);  
+        //ActiveWeapon.Instance.transform.rotation = Quaternion.Euler(0f,0f,0f);  
 
         //set transform của newWeapon = là ActiveWeapon transform
-        newWeapon.transform.parent = ActiveWeapon.Instance.transform;
+        //newWeapon.transform.parent = ActiveWeapon.Instance.transform;
 
         //tạo vũ khí mới
         ActiveWeapon.Instance.NewWeapon(newWeapon.GetComponent<MonoBehaviour>());

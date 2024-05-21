@@ -31,6 +31,11 @@ public class PlayerController : Singleton<PlayerController>
     private void Start()
     {
         playerControls.Combat.Dash.performed += _ => Dash();
+        ActiveInventory.Instance.EquipStartingWeapon();
+    }
+    private void OnDisable()
+    {
+        playerControls.Disable();
     }
 
     public void Dash()
@@ -99,7 +104,7 @@ public class PlayerController : Singleton<PlayerController>
 
     private void Move()
     {
-        if(knockBack.gettingKnockedBack)
+        if(knockBack.gettingKnockedBack || PlayerHealth.Instance.isDead)
         {
             return;
         }
