@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Staff : MonoBehaviour,IWeapon
+public class Staff : MonoBehaviour, IWeapon
 {
     [SerializeField] private WeaponInfo weaponInfo;
     [SerializeField] private GameObject magicLaser;
@@ -10,7 +10,7 @@ public class Staff : MonoBehaviour,IWeapon
 
     private Animator staffAnimator;
 
-    readonly int AttackHas = Animator.StringToHash("Attack");
+    readonly int AttackHash = Animator.StringToHash("Attack");
 
     private void Awake()
     {
@@ -23,15 +23,19 @@ public class Staff : MonoBehaviour,IWeapon
     }
     public void Attack()
     {
-        staffAnimator.SetTrigger(AttackHas);
-        //Debug.Log("Staff Attack");
+        if (Stamina.Instance.CurrentStamina > 0)
+        {
+            staffAnimator.SetTrigger(AttackHash);
+            //Debug.Log("Staff Attack");
+            Stamina.Instance.UseStamina();
+        }
     }
 
 
     //tạo 1 laser mới
     public void SpawnStaffProjectileAnimationEvent()
     {
-        GameObject newLaser = Instantiate(magicLaser,magicLaserSpawnPoint.position,Quaternion.identity);
+        GameObject newLaser = Instantiate(magicLaser, magicLaserSpawnPoint.position, Quaternion.identity);
         newLaser.GetComponent<MagicLaser>().UpdateLaserRange(weaponInfo.weaponRange);
     }
 
@@ -66,9 +70,8 @@ public class Staff : MonoBehaviour,IWeapon
         else
         {
             ActiveWeapon.Instance.transform.rotation = Quaternion.Euler(0, 0, angle);
-
         }
     }
 
-   
+
 }

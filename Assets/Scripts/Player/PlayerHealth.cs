@@ -12,6 +12,9 @@ public class PlayerHealth : Singleton<PlayerHealth>
     [SerializeField] private float damageRecoveryTime = 1f; // Thời gian phục hồi
     [SerializeField] private int damageFromEnemy = 1;
 
+    const string HEALTH_SLIDER_TEXT = "Health Slider";
+
+
     private Slider healthSilder;
     private int curentHealth;
     private bool canTakeDamage = true;
@@ -41,6 +44,8 @@ public class PlayerHealth : Singleton<PlayerHealth>
         // Kiểm tra xem healthSilder đã được gán chưa
         if (healthSilder == null)
         {
+
+            healthSilder = GameObject.Find(HEALTH_SLIDER_TEXT).GetComponent<Slider>();
             // Tìm đối tượng "Health Slider" trong scene
             GameObject healthSliderObj = GameObject.Find("Health Slider");
             if (healthSliderObj != null)

@@ -5,7 +5,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlayerController : Singleton<PlayerController> 
+public class PlayerController : Singleton<PlayerController>
 {
     //[SerializeField] dùng để hiển thị trên inspector
     [SerializeField] private float moveSpeed = 1f;
@@ -104,7 +104,7 @@ public class PlayerController : Singleton<PlayerController>
 
     private void Move()
     {
-        if(knockBack.gettingKnockedBack || PlayerHealth.Instance.isDead)
+        if (knockBack.gettingKnockedBack || PlayerHealth.Instance.isDead)
         {
             return;
         }
