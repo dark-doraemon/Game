@@ -8,7 +8,9 @@ public class PickUpSpawner : MonoBehaviour
 
     [SerializeField] private int randomRate = 5;//càng cao càng giảm
 
-    [SerializeField] private GameObject goldCoin, healthGlobe, staminaGlobe;
+    [SerializeField] private GameObject goldCoin ;
+    [SerializeField] private GameObject healthGlobe;
+    [SerializeField] private GameObject  staminaGlobe;
 
 
     //hàm tạo ra item (gold,healthGolbe,stanimaGlobe)

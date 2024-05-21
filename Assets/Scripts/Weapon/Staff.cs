@@ -10,7 +10,7 @@ public class Staff : MonoBehaviour,IWeapon
 
     private Animator staffAnimator;
 
-    readonly int AttackHas = Animator.StringToHash("Attack");
+    readonly int AttackHash = Animator.StringToHash("Attack");
 
     private void Awake()
     {
@@ -23,8 +23,12 @@ public class Staff : MonoBehaviour,IWeapon
     }
     public void Attack()
     {
-        staffAnimator.SetTrigger(AttackHas);
-        //Debug.Log("Staff Attack");
+        if(Stamina.Instance.CurrentStamina > 0)
+        {
+            staffAnimator.SetTrigger(AttackHash);
+            //Debug.Log("Staff Attack");
+            Stamina.Instance.UseStamina();
+        }
     }
 
 
@@ -66,7 +70,6 @@ public class Staff : MonoBehaviour,IWeapon
         else
         {
             ActiveWeapon.Instance.transform.rotation = Quaternion.Euler(0, 0, angle);
-
         }
     }
 

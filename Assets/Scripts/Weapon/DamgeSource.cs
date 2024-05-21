@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DamgeSource : MonoBehaviour
 {
-    [SerializeField] private int damageAmount = 1;  
+    [SerializeField] private int damageAmount = 5;
 
     private void OnTriggerEnter2D(Collider2D collision) //collision là những đối tượng khác trong phạm vi collision của game object được gắn script này
     {

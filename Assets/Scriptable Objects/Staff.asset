@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponPrelab: {fileID: 1277336101347998632, guid: 17c774c9cc1599647b039b49b22cb42c, type: 3}
   weaponCountdown: 1.2
-  weaponDamage: 2
+  weaponDamage: 5
   weaponRange: 15
