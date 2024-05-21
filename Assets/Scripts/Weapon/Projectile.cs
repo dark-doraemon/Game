@@ -38,7 +38,7 @@ public class Projectile : MonoBehaviour
         //thì tạo hiệu ứng va chạm của mũi tên
         if(!other.isTrigger && (enemyHealth || indestructible))
         {
-            enemyHealth?.TakingDamage(weaponInfo.weaponDamage);
+            //enemyHealth?.TakingDamage(weaponInfo.weaponDamage);
             Instantiate(particleOnHitPrefabVFX,transform.position, transform.rotation);
 
             Destroy(gameObject);
