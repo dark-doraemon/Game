@@ -9,7 +9,8 @@ public class DamgeSource : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision) //collision là những đối tượng khác trong phạm vi collision của game object được gắn script này
     {
         //ta chỉ quan tầm tới EnemyHealth thôi nếu là EnemyHealth thì Debug.log
-        if (collision.gameObject.GetComponent<EnemyHealth>())
+        var s = collision.gameObject.GetComponent<EnemyHealth>();
+        if (s)
         {
             EnemyHealth enemyHealth = collision.gameObject.GetComponent<EnemyHealth>();
             enemyHealth.TakingDamage(damageAmount);

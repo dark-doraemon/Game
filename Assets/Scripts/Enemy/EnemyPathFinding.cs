@@ -47,4 +47,9 @@ public class EnemyPathFinding : MonoBehaviour
         //vị trí mà slime sẽ duy chuyển tới là vị trí của target
         moveDirection = targetPosition;
     }
+
+    public void StopMoving()
+    {
+        moveDirection = Vector3.zero;
+    }
 }
