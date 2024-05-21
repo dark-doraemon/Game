@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Unity.PlasticSCM.Editor.WebApi;
+using Unity.VisualScripting;
 
 public class PlayerHealth : Singleton<PlayerHealth>
 {
@@ -16,6 +17,8 @@ public class PlayerHealth : Singleton<PlayerHealth>
     [SerializeField] private float damageRecoveryTime = 1f; //thời gian phục hổi
     [SerializeField] private int damageFromEnemy = 1;
 
+
+    private Slider healthSilder;
     private int curentHealth;
     private bool canTakeDamage = true;
     private KnockBack knockBack;
@@ -36,6 +39,18 @@ public class PlayerHealth : Singleton<PlayerHealth>
     {
         isDead = false;
         curentHealth = maxHealth;
+
+        UpdateHealthSilder();
+    }
+
+    public void UpdateHealthSilder()
+    {
+        if(healthSilder == null)
+        {
+            healthSilder = GameObject.Find("Health Slider").GetComponent<Slider>();
+        }
+        healthSilder.maxValue = maxHealth;
+        healthSilder.value = curentHealth;
     }
 
     private void OnCollisionStay2D(Collision2D other)
@@ -51,7 +66,12 @@ public class PlayerHealth : Singleton<PlayerHealth>
 
     public void HealPlayer()
     {
-        curentHealth += 1;
+        if (curentHealth < maxHealth)
+        {
+            curentHealth += 1;
+            UpdateHealthSilder();
+        }
+
     }
 
     private void CheckIfPlayerDeath()
@@ -89,6 +109,8 @@ public class PlayerHealth : Singleton<PlayerHealth>
         this.curentHealth -= damageAmount;
         //khi nhận damage thì sẽ có 1 khoảng thời gian bị nháy và đó chính là khoảng thời gian không bị nhân damage
         StartCoroutine(DamageRecoveryRoutine());
+
+        UpdateHealthSilder();
 
         CheckIfPlayerDeath();
     }
