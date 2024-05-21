@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: 3863030263488072564}
   m_Layer: 0
   m_Name: zombie
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -166,6 +166,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6c4e0da6c6364e4abc7b215e928ae21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  roamChangeDirFloat: 2
+  attackRange: 5
+  enemyType: {fileID: 0}
+  attackCountdown: 2
+  stopMovingWhileAttacking: 0
 --- !u!114 &5409260330135737
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,29 +1,22 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using Unity.PlasticSCM.Editor.WebApi;
-using Unity.VisualScripting;
 
 public class PlayerHealth : Singleton<PlayerHealth>
 {
-    public bool isDead {  get; private set; }   
+    public bool isDead { get; private set; }
     [SerializeField] private int maxHealth = 3;
-    [SerializeField] private float knockBackThrustAmount = 10f; //lực bị đẩy
-    [SerializeField] private float damageRecoveryTime = 1f; //thời gian phục hổi
+    [SerializeField] private float knockBackThrustAmount = 10f; // Lực bị đẩy
+    [SerializeField] private float damageRecoveryTime = 1f; // Thời gian phục hồi
     [SerializeField] private int damageFromEnemy = 1;
-
 
     private Slider healthSilder;
     private int curentHealth;
     private bool canTakeDamage = true;
     private KnockBack knockBack;
     private Flash flash;
-
 
     const string TOWN_TEXT = "Scene1";
     readonly int DEATH_HASH = Animator.StringToHash("Death");
@@ -40,15 +33,29 @@ public class PlayerHealth : Singleton<PlayerHealth>
         isDead = false;
         curentHealth = maxHealth;
 
-        UpdateHealthSilder();
+        UpdateHealthSlider();
     }
 
-    public void UpdateHealthSilder()
+    public void UpdateHealthSlider()
     {
-        if(healthSilder == null)
+        // Kiểm tra xem healthSilder đã được gán chưa
+        if (healthSilder == null)
         {
-            healthSilder = GameObject.Find("Health Slider").GetComponent<Slider>();
+            // Tìm đối tượng "Health Slider" trong scene
+            GameObject healthSliderObj = GameObject.Find("Health Slider");
+            if (healthSliderObj != null)
+            {
+                // Lấy component Slider từ đối tượng "Health Slider"
+                healthSilder = healthSliderObj.GetComponent<Slider>();
+            }
+            else
+            {
+                // Nếu không tìm thấy "Health Slider", xuất thông báo lỗi và thoát khỏi hàm
+                Debug.LogError("Health Slider not found!");
+                return;
+            }
         }
+        // Cập nhật giá trị và giá trị tối đa cho Slider
         healthSilder.maxValue = maxHealth;
         healthSilder.value = curentHealth;
     }
@@ -57,11 +64,10 @@ public class PlayerHealth : Singleton<PlayerHealth>
     {
         EnemyAI enemy = other.gameObject.GetComponent<EnemyAI>();
 
-        if(enemy)
+        if (enemy)
         {
-            TakeDamage(damageFromEnemy,other.transform);
+            TakeDamage(damageFromEnemy, other.transform);
         }
-        
     }
 
     public void HealPlayer()
@@ -69,9 +75,8 @@ public class PlayerHealth : Singleton<PlayerHealth>
         if (curentHealth < maxHealth)
         {
             curentHealth += 1;
-            UpdateHealthSilder();
+            UpdateHealthSlider();
         }
-
     }
 
     private void CheckIfPlayerDeath()
@@ -97,20 +102,19 @@ public class PlayerHealth : Singleton<PlayerHealth>
         SceneManager.LoadScene(TOWN_TEXT);
     }
 
-    public void TakeDamage(int damageAmount,Transform hitTransfrom)
+    public void TakeDamage(int damageAmount, Transform hitTransfrom)
     {
+        if (!canTakeDamage) return;
 
-        if(!canTakeDamage) return;
+        knockBack.GetKnockedBack(hitTransfrom, knockBackThrustAmount);
 
-        knockBack.GetKnockedBack(hitTransfrom,knockBackThrustAmount);
-
-        StartCoroutine (flash.FlashRoutine());  
+        StartCoroutine(flash.FlashRoutine());
         canTakeDamage = false;
         this.curentHealth -= damageAmount;
-        //khi nhận damage thì sẽ có 1 khoảng thời gian bị nháy và đó chính là khoảng thời gian không bị nhân damage
+        // Khi nhận damage thì sẽ có 1 khoảng thời gian bị nháy và đó chính là khoảng thời gian không bị nhận damage
         StartCoroutine(DamageRecoveryRoutine());
 
-        UpdateHealthSilder();
+        UpdateHealthSlider();
 
         CheckIfPlayerDeath();
     }
@@ -121,5 +125,4 @@ public class PlayerHealth : Singleton<PlayerHealth>
 
         canTakeDamage = true;
     }
-
 }
