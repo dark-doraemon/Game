@@ -31,8 +31,6 @@ public class EnemyHealth : MonoBehaviour
 
         //ta cần vị trí của Nguồn gây sát thương để tính toán góc bị đẫy
         knockBack.GetKnockedBack(PlayerController.Instance.transform, knockBackThrust);
-        Debug.Log(currentHealth);
-
 
         //nếu quái nhận damage thì kích hoạt hiệu ứng bị đánh
         StartCoroutine(flash.FlashRoutine());
@@ -46,6 +44,9 @@ public class EnemyHealth : MonoBehaviour
             //nếu slime chết thì tạo hiệu ứng chết tại ví trí của slime
             Instantiate(slimeDeathVFXPrefab,transform.position,Quaternion.identity);
             Destroy(gameObject);
+
+            //khi chết rớt ra coin
+            GetComponent<PickUpSpawner>().DropItems();
         }
     }
 }
