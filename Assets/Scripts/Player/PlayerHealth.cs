@@ -49,6 +49,11 @@ public class PlayerHealth : Singleton<PlayerHealth>
         
     }
 
+    public void HealPlayer()
+    {
+        curentHealth += 1;
+    }
+
     private void CheckIfPlayerDeath()
     {
         if (curentHealth <= 0 && !isDead)

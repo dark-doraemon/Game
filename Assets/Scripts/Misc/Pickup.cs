@@ -4,6 +4,15 @@ using UnityEngine;
 
 public class Pickup : MonoBehaviour
 {
+
+    private enum PickUpType
+    {
+        GoldCoin,
+        StaminaGlobe,
+        HealthGlobe
+    }
+
+    [SerializeField] private PickUpType pickUpType;
     [SerializeField] private float pickUpDistance = 5f; //khoảng cách object player hút
     [SerializeField] private float accelartionRate = .2f;//tốc độ để vật dần dần bị hút nhanh hơn
     [SerializeField] private float moveSpeed = 3f;
@@ -79,8 +88,28 @@ public class Pickup : MonoBehaviour
         //nếu gameobject va chạm là player thì hủy (coin,máu,mana)
         if (other.gameObject.GetComponent<PlayerController>())
         {
-            Debug.Log("da cham vao player");
+            DetectPickupType();
             Destroy(gameObject);
+        }
+    }
+
+    //hàm check xem item bị lấy là gì
+    private void DetectPickupType()
+    {
+        switch (pickUpType)
+        {
+            case PickUpType.GoldCoin:
+                // do goldcoin stuff
+                Debug.Log("GoldCoin");
+                break;
+            case PickUpType.HealthGlobe:
+                PlayerHealth.Instance.HealPlayer();
+                Debug.Log("HealthGlobe");
+                break;
+            case PickUpType.StaminaGlobe:
+                // do stamina globe stuff
+                Debug.Log("StaminaGlobe");
+                break;
         }
     }
 }
